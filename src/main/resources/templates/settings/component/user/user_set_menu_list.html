@@ -1,0 +1,36 @@
+<div th:fragment="userSetMenuList">
+    <table id="datatable-user" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
+        <colgroup>
+            <col width="10%"/>
+            <col width="10%"/>
+            <col width="70%"/>
+            <col width="5%"/>
+            <col width="5%"/>
+        </colgroup>
+        <thead>
+        <tr>
+            <th style="text-align:center;">LoginId</th>
+            <th style="text-align:center;">그룹</th>
+            <th style="text-align:center;">설정된메뉴</th>
+            <th style="text-align:center;">수정</th>
+            <th style="text-align:center;">삭제</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:if="${#lists.size(setUser)} > 0" th:each="setUser : ${setUser}">
+            <td style="text-align:center; vertical-align:middle;" th:text="${setUser.loginId}"></td>
+            <td style="text-align:center; vertical-align:middle;" th:text="${setUser.grpAlias}"></td>
+            <td style="text-align:left; vertical-align:middle;" th:text="${setUser.setMenuNm}?:'설정된 메뉴가 없습니다.'"></td>
+            <td style="text-align:center; vertical-align:middle;" th:onclick="'updateSetMenu(\'' + ${setUser.setMenuNo} + '\',\'' + ${setUser.loginId} + '\');'">
+                <i class="fa fa-upload" aria-hidden="true" ></i>
+            </td>
+            <td style="text-align:center;" th:onclick="'deleteSetUserMenu(\'' + ${setUser.loginId} + '\');'">
+                <i class="fa fa-trash-o" aria-hidden="true"></i>
+            </td>
+        </tr>
+        <tr th:unless="${#lists.size(setUser)} > 0">
+            <td colspan="3" style="text-align:center;">데이터가 없습니다.</td>
+        </tr>
+        </tbody>
+    </table>
+</div>

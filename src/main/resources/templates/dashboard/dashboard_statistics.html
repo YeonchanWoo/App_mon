@@ -1,0 +1,65 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="fragments/layout">
+<head>
+    <title>통계 대시보드</title>
+</head>
+
+<section layout:fragment="content">
+    <div class="row">
+        <div class="x_panel">
+            <div class="x_title">
+                <div class="col-md-3">
+                    <h2>통계 대시보드</h2>
+                </div>
+
+                <div class="col-md-6 col-sm-6 col-xs-12" style="float:right;">
+                    <div class="col-md-5">
+                        <div class="form-group">
+                            <div class='input-group date' id='date_timepicker_1'>
+                                <input type='text' class="form-control" />
+                                <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="form-group">
+                            <div class='input-group date' id='date_timepicker_2'>
+                                <input type='text' class="form-control" />
+                                <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-1">
+                        <button type="button" class="btn btn-info" id="btn_grape_statistics">조회</button>
+                    </div>
+                </div>
+
+                <div class="clearfix"></div>
+            </div>
+
+            <div class="col-md-3 col-sm-3 col-xs-12">
+                <div class="x_panel" th:replace="/dashboard/component/gauge_total_count.html :: gauge_total_count"></div>
+            </div>
+            <div class="col-md-9 col-sm-9 col-xs-12">
+                <div class="x_panel" th:replace="/dashboard/component/grape_ios_android.html :: grape_ios_android"></div>
+            </div>
+
+            <div class="col-md-4 col-sm-4 col-xs-12">
+                <div class="x_panel" th:replace="/dashboard/component/piechart_os.html :: piechart_os"></div>
+            </div>
+            <div class="col-md-4 col-sm-4 col-xs-12">
+                <div class="x_panel" th:replace="/dashboard/component/piechart_version.html :: piechart_version"></div>
+            </div>
+            <div class="col-md-4 col-sm-4 col-xs-12">
+                <div class="x_panel" th:replace="/dashboard/component/piechart_device.html :: piechart_device"></div>
+            </div>
+        </div>
+    </div>
+</section>
+</html>

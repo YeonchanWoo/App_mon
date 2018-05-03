@@ -1,0 +1,248 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+    <title>App Monitoring System </title>
+
+    <!-- Bootstrap -->
+    <link th:href="@{/vendos/bootstrap/dist/css/bootstrap.min.css}" rel="stylesheet" type="text/css"/>
+    <!-- bootstrap-toggle -->
+    <link th:href="@{/vendos/bootstrap-toggle/css/bootstrap-toggle.min.css}"rel="stylesheet">
+    <!-- Font Awesome -->
+    <link th:href="@{/vendos/font-awesome/css/font-awesome.min.css}" rel="stylesheet" type="text/css"/>
+    <!-- Custom Theme Style -->
+    <link th:href="@{/css/custom.min.css}" rel="stylesheet" type="text/css"/>
+
+</head>
+<body class="nav-md">
+<div class="container body">
+    <div class="main_container">
+        <div class="col-md-3 left_col">
+            <div class="left_col scroll-view">
+                <div class="navbar nav_title" style="border: 0;">
+                    <a href="/" class="site_title"><i class="fa fa-paw"></i> <span>AppMonitoringSystem</span></a>
+                </div>
+
+                <div class="clearfix"></div>
+
+                <!-- menu profile quick info -->
+                <div class="profile clearfix">
+                    <div class="profile_pic">
+                        <img src="images/img.jpg" alt="..." class="img-circle profile_img">
+                    </div>
+                    <div class="profile_info">
+                        <span>Welcome</span>
+                        <h2 th:text="${loginId}"></h2>
+                    </div>
+                </div>
+                <!-- /menu profile quick info -->
+
+                <br />
+
+                <!-- sidebar menu -->
+                <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+                    <div class="menu_section">
+                        <h3 th:text="${grpAlias}"></h3>
+                        <ul class="nav side-menu">
+                            <!--<li><a ><i class="fa fa-home"></i> 홈 <span class="fa fa-chevron"></span></a></li>-->
+                            <th:block th:each="menuGrp : ${mainMenuGrp}">
+                                <li th:if="${menuGrp.mainMenuGrp} == DASHBOARD"><a><i class="fa fa-bar-chart-o"></i> 대시보드 <span class="fa fa-chevron-down"></span></a>
+                                    <ul class="nav child_menu">
+                                        <th:block th:each="menu : ${mainMenu}">
+                                            <li th:if="${menu.mainMenuGrp} == DASHBOARD" >
+                                                <a th:href="${menu.mainUrl}" th:text="${menu.menuName}"></a>
+                                            </li>
+                                        </th:block>
+                                    </ul>
+                                </li>
+
+                                <th:block th:if="${grpAlias} == admin">
+                                    <li th:if="${menuGrp.mainMenuGrp} == SETTINGS"><a><i class="fa fa-cogs"></i> 설정 <span class="fa fa-chevron-down"></span></a>
+                                        <ul class="nav child_menu">
+                                            <th:block th:each="menu : ${mainMenu}">
+                                                <li th:if="${menu.mainMenuGrp} == SETTINGS">
+                                                    <a th:href="${menu.mainUrl}" th:text="${menu.menuName}"></a>
+                                                </li>
+                                            </th:block>
+                                        </ul>
+                                    </li>
+                                </th:block>
+                            </th:block>
+                        </ul>
+                    </div>
+
+                </div>
+                <!-- /sidebar menu -->
+
+                <!-- /menu footer buttons -->
+                <!--<div class="sidebar-footer hidden-small">-->
+                    <!--<a data-toggle="tooltip" data-placement="top" title="Settings">-->
+                        <!--<span class="glyphicon glyphicon-cog" aria-hidden="true"></span>-->
+                    <!--</a>-->
+                    <!--<a data-toggle="tooltip" data-placement="top" title="FullScreen">-->
+                        <!--<span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>-->
+                    <!--</a>-->
+                    <!--<a data-toggle="tooltip" data-placement="top" title="Lock">-->
+                        <!--<span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>-->
+                    <!--</a>-->
+                    <!--<a data-toggle="tooltip" data-placement="top" title="Logout" href="login.html">-->
+                        <!--<span class="glyphicon glyphicon-off" aria-hidden="true"></span>-->
+                    <!--</a>-->
+                <!--</div>-->
+                <!-- /menu footer buttons -->
+            </div>
+        </div>
+
+        <!-- top navigation -->
+        <div class="top_nav">
+            <div class="nav_menu">
+                <nav>
+                    <div class="nav toggle">
+                        <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+                    </div>
+
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="">
+                            <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                <img src="images/img.jpg" alt=""><span th:text="${loginId}"></span>
+                                <span class=" fa fa-angle-down"></span>
+                            </a>
+                            <ul class="dropdown-menu dropdown-usermenu pull-right">
+                                <!--<li><a href="javascript:;"> Profile</a></li>-->
+                                <!--<li>-->
+                                    <!--<a href="javascript:;">-->
+                                        <!--<span class="badge bg-red pull-right">50%</span>-->
+                                        <!--<span>Settings</span>-->
+                                    <!--</a>-->
+                                <!--</li>-->
+                                <!--<li><a href="javascript:;">Help</a></li>-->
+                                <li><a href="/j_spring_security_logout"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
+                            </ul>
+                        </li>
+
+                        <!--<li role="presentation" class="dropdown">-->
+                            <!--<a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">-->
+                                <!--<i class="fa fa-envelope-o"></i>-->
+                                <!--<span class="badge bg-green">6</span>-->
+                            <!--</a>-->
+                            <!--<ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">-->
+                                <!--<li>-->
+                                    <!--<a>-->
+                                        <!--<span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>-->
+                                        <!--<span>-->
+                          <!--<span>John Smith</span>-->
+                          <!--<span class="time">3 mins ago</span>-->
+                        <!--</span>-->
+                                        <!--<span class="message">-->
+                          <!--Film festivals used to be do-or-die moments for movie makers. They were where...-->
+                        <!--</span>-->
+                                    <!--</a>-->
+                                <!--</li>-->
+                                <!--<li>-->
+                                    <!--<a>-->
+                                        <!--<span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>-->
+                                        <!--<span>-->
+                          <!--<span>John Smith</span>-->
+                          <!--<span class="time">3 mins ago</span>-->
+                        <!--</span>-->
+                                        <!--<span class="message">-->
+                          <!--Film festivals used to be do-or-die moments for movie makers. They were where...-->
+                        <!--</span>-->
+                                    <!--</a>-->
+                                <!--</li>-->
+                                <!--<li>-->
+                                    <!--<a>-->
+                                        <!--<span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>-->
+                                        <!--<span>-->
+                          <!--<span>John Smith</span>-->
+                          <!--<span class="time">3 mins ago</span>-->
+                        <!--</span>-->
+                                        <!--<span class="message">-->
+                          <!--Film festivals used to be do-or-die moments for movie makers. They were where...-->
+                        <!--</span>-->
+                                    <!--</a>-->
+                                <!--</li>-->
+                                <!--<li>-->
+                                    <!--<a>-->
+                                        <!--<span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>-->
+                                        <!--<span>-->
+                          <!--<span>John Smith</span>-->
+                          <!--<span class="time">3 mins ago</span>-->
+                        <!--</span>-->
+                                        <!--<span class="message">-->
+                          <!--Film festivals used to be do-or-die moments for movie makers. They were where...-->
+                        <!--</span>-->
+                                    <!--</a>-->
+                                <!--</li>-->
+                                <!--<li>-->
+                                    <!--<div class="text-center">-->
+                                        <!--<a>-->
+                                            <!--<strong>See All Alerts</strong>-->
+                                            <!--<i class="fa fa-angle-right"></i>-->
+                                        <!--</a>-->
+                                    <!--</div>-->
+                                <!--</li>-->
+                            <!--</ul>-->
+                        <!--</li>-->
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        <!-- /top navigation -->
+
+        <!-- page content -->
+        <div class="right_col" role="main">
+            <section layout:fragment="content">
+                <p>Main content</p>
+            </section>
+        </div>
+        <!-- /page content -->
+
+        <!-- footer content -->
+        <footer>
+            <div class="pull-right">
+                App Crash Monitoring System by <a href="">GS ITM</a>
+            </div>
+            <div class="clearfix"></div>
+        </footer>
+        <!-- /footer content -->
+    </div>
+</div>
+
+<!-- jquery -->
+<script th:src="@{/vendos/jquery/dist/jquery.min.js}"></script>
+<!-- bootstrap -->
+<script th:src="@{/vendos/bootstrap/dist/js/bootstrap.min.js}"></script>
+<!-- bootstrap-toggle -->
+<script th:src="@{/vendos/bootstrap-toggle/js/bootstrap-toggle.min.js}"></script>
+<!-- bootstrap-daterangepicker -->
+<script th:src="@{/vendos/moment/min/moment.min.js}"></script>
+<script th:src="@{/vendos/bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js}"></script>
+<!-- echarts -->
+<script th:src="@{/vendos/echarts/dist/echarts.js}"></script>
+<!-- datatables -->
+<script th:src="@{/vendos/datatables.net/js/jquery.dataTables.min.js}"></script>
+<script th:src="@{/vendos/datatables.net-bs/js/dataTables.bootstrap.min.js}"></script>
+<script th:src="@{/vendos/datatables.net-buttons/js/dataTables.buttons.min.js}"></script>
+<script th:src="@{/vendos/datatables.net-buttons-bs/js/buttons.bootstrap.min.js}"></script>
+<script th:src="@{/vendos/datatables.net-buttons/js/buttons.flash.min.js}"></script>
+<script th:src="@{/vendos/datatables.net-buttons/js/buttons.html5.min.js}"></script>
+<script th:src="@{/vendos/datatables.net-buttons/js/buttons.print.min.js}"></script>
+<script th:src="@{/vendos/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js}"></script>
+<script th:src="@{/vendos/datatables.net-keytable/js/dataTables.keyTable.min.js}"></script>
+<script th:src="@{/vendos/datatables.net-responsive/js/dataTables.responsive.min.js}"></script>
+<script th:src="@{/vendos/datatables.net-responsive-bs/js/responsive.bootstrap.js}"></script>
+<script th:src="@{/vendos/datatables.net-scroller/js/dataTables.scroller.min.js}"></script>
+<!-- dashboard -->
+<script th:src="@{/js/dashboard/dashboard.js}"></script>
+<script th:src="@{/js/settings/settings_user.js}"></script>
+<script th:src="@{/js/settings/settings_menu.js}"></script>
+<script th:src="@{/js/settings/settings_apps.js}"></script>
+
+</body>
+</html>

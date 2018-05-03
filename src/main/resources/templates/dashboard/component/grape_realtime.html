@@ -1,0 +1,43 @@
+<div class="x_panel" th:fragment="grape_realtime">
+    <div class="x_title">
+        <div class="col-md-3">
+            <h2>실시간 그래프</h2>
+        </div>
+
+        <div class="col-md-6 col-sm-6 col-xs-12" style="float:right;">
+            <div class="col-md-5">
+                <div class="form-group">
+                    <div class='input-group date' id='date_timepicker_1'>
+                        <input type='text' class="form-control" />
+                        <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-5">
+                <div class="form-group">
+                    <div class='input-group date' id='date_timepicker_2'>
+                        <input type='text' class="form-control" />
+                        <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-calendar"></span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-1">
+                <button type="button" class="btn btn-info" id="btn_grape_realtime">조회</button>
+            </div>
+        </div>
+
+        <div class="col-md-1" style="float:right;">
+            <input type="checkbox" id="chk_refresh"  data-toggle="toggle" data-on="정지" data-off="실시간">
+        </div>
+
+        <div class="clearfix"></div>
+    </div>
+    <div class="x_content">
+        <div id="grape_realtime" style="height:350px;"></div>
+    </div>
+</div>

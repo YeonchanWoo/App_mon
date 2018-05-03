@@ -1,0 +1,21 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="fragments/layout">
+<head>
+    <title>앱 설정</title>
+</head>
+
+<section layout:fragment="content">
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_panel" th:replace="/settings/component/apps/app_manager.html :: appManager"></div>
+        </div>
+
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_panel" th:replace="/settings/component/apps/app_manager.html :: list"></div>
+        </div>
+
+    </div>
+</section>
+</html>

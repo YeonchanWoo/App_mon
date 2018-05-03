@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.admin.web.mapper.SettingsMapper">
+	<insert id="insertMenu">
+		INSERT INTO TB_MAIN_MENU(
+			<if test="menu.id != 0">
+				ID, 
+			</if>
+			MENU_NM, MENU_COMMENT, URL, ACTIVE_YN, SUB_MENU_GRP, SORT, REG_DATE)
+		VALUES(
+			<if test="menu.id != 0">
+				#{menu.id}, 
+			</if>
+			#{menu.menuName}, #{menu.menuComment}, #{menu.mainUrl}, #{menu.activeYn}, #{menu.mainMenuGrp}, #{menu.sort}, SYSDATE())
+		ON DUPLICATE KEY UPDATE 
+			MENU_NM = #{menu.menuName},
+			MENU_COMMENT = #{menu.menuComment},
+			URL = #{menu.mainUrl},
+			ACTIVE_YN = #{menu.activeYn},
+			SUB_MENU_GRP = #{menu.mainMenuGrp},
+			SORT = #{menu.sort},
+			UPT_DATE = SYSDATE()
+	</insert>
+	
+	<delete id="deleteMenu">
+		DELETE FROM TB_MAIN_MENU 
+		WHERE ID = #{menu.id}
+		AND NOT EXISTS (SELECT LOGIN_ID FROM TB_MENU_SET_USER TMSU WHERE TMSU.SET_MENU_NO LIKE CONCAT('%',#{menu.id},'%'))
+	</delete>
+
+</mapper>

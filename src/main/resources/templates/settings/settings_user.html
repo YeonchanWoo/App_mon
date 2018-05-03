@@ -1,0 +1,20 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="fragments/layout">
+<head>
+    <title> 사용자 메뉴 등록 및 수정 </title>
+</head>
+
+<section layout:fragment="content">
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_panel" th:replace="/settings/component/user/user_manager.html :: update"></div>
+        </div>
+
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_panel" th:replace="/settings/component/user/user_manager.html :: manager"></div>
+        </div>
+    </div>
+</section>
+</html>

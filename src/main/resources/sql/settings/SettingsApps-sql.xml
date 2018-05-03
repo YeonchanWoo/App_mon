@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.admin.web.mapper.SettingsMapper">
+	<update id="updateApps">
+	<![CDATA[
+		INSERT INTO TB_APPS(THUMBNAIL_NAME, APP_NAME, APP_DIVISION, REG_DATE)
+		VALUES (#{apps.thumbnailName}, #{apps.appName}, #{apps.appDivision},SYSDATE())
+		ON DUPLICATE KEY UPDATE 
+			THUMBNAIL_NAME = #{apps.thumbnailName},
+			APP_NAME = #{apps.appName},
+			APP_DIVISION = #{apps.appDivision},
+			UPT_DATE = SYSDATE()
+	]]>
+	</update>
+
+    <select id="selectAppsList" resultType="Apps">
+    <![CDATA[
+        SELECT
+            ID id,
+            THUMBNAIL_NAME thumbnailName,
+            APP_NAME appName,
+            APP_DIVISION appDivision,
+            REG_DATE regDate,
+            UPT_DATE uptDate
+        FROM TB_APPS
+        WHERE 1=1
+        ORDER BY APP_NAME ASC
+    ]]>
+    </select>
+
+    <delete id="deleteApps">
+        DELETE FROM TB_APPS WHERE ID = #{apps.id}
+    </delete>
+
+
+</mapper>

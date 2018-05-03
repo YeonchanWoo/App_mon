@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.admin.web.mapper.UserMapper">
+	<select id="selectMbrList" resultType="User">
+	<![CDATA[
+		SELECT 
+			TM.ID 						id,
+			TM.LOGIN_ID					loginId,
+			TM.PWD						password,
+			TM.ACTIVE_YN				activeYn,
+			TM.GROUP_ALIAS				grpAlias,
+			TM.AUTH_ID					authId,
+			TM.REG_DATE					regDate,
+			TM.UPT_DATE					uptDate,
+			
+			TMSU.SET_MENU_NO			setMenuNo
+		FROM TB_MBR TM 
+		LEFT OUTER JOIN TB_MENU_SET_USER TMSU
+		ON (TM.LOGIN_ID = TMSU.LOGIN_ID)
+		WHERE 1=1
+	]]>
+	<if test="loginId != null">
+		AND TM.LOGIN_ID = #{loginId}
+	</if>
+	<![CDATA[
+		AND TM.ACTIVE_YN = 'Y'
+	]]>
+	</select>
+
+	<select id="selectMainMenuList" resultType="Menu">
+	<![CDATA[
+		SELECT
+			ID 					id,
+			MENU_NM				menuName,
+			MENU_COMMENT		menuComment,
+			URL					mainUrl,
+			SORT				sort,
+			ACTIVE_YN			activeYn,
+			SUB_MENU_GRP		mainMenuGrp
+		FROM TB_MAIN_MENU
+		WHERE 1=1
+	]]>
+	<if test="menuNo != null">
+		AND ID IN 
+		<foreach collection="menuNo" item="item" index="index" separator="," open="(" close=")">
+			#{item.value}
+		</foreach>
+	</if>
+	<![CDATA[
+		ORDER BY SORT, MENU_NM ASC
+	]]>
+	</select>
+
+	<select id="selectMainMenuGrpList" resultType="Menu">
+		<![CDATA[
+		SELECT
+			SUB_MENU_GRP		mainMenuGrp
+		FROM TB_MAIN_MENU
+		WHERE 1=1
+	]]>
+		<if test="menuNo != null">
+		AND ID IN
+			<foreach collection="menuNo" item="item" index="index" separator="," open="(" close=")">
+				#{item.value}
+			</foreach>
+		</if>
+		<![CDATA[
+		GROUP BY SUB_MENU_GRP
+	]]>
+	</select>
+</mapper>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+	<!-- Bootstrap -->
+	<link th:href="@{/vendos/bootstrap/dist/css/bootstrap.min.css}" rel="stylesheet" type="text/css"/>
+	<!-- bootstrap-toggle -->
+	<link th:href="@{/vendos/bootstrap-toggle/css/bootstrap-toggle.min.css}"rel="stylesheet">
+	<!-- Font Awesome -->
+	<link th:href="@{/vendos/font-awesome/css/font-awesome.min.css}" rel="stylesheet" type="text/css"/>
+	<!-- Custom Theme Style -->
+	<link th:href="@{/css/custom.min.css}" rel="stylesheet" type="text/css"/>
+</head>
+<style>
+	#login{position:absolute; top:20%; left:50%; width:300px; margin-left:-150px;}
+</style>
+
+<body class="nav-md login-page" >
+	<form th:action="@{/j_spring_security_check}" method="post">
+		<div class="container body">
+			<div class="main_container">
+				<div class="wrapper center-block" id="login">
+					<input type="text" id="username" name="username" class="form-control" placeholder="Login Id" maxlength=20>
+					<input type="password" id="password" name="password" class="form-control" placeholder="Password" >
+
+					<br>
+					<button type="submit" id="btnLogin" class="btn btn-info">로그인</button>
+
+					<!-- <a href="javascript:;" id="joinLink" >회원가입</a> -->
+				</div>
+			</div>
+		</div>
+	</form>
+</body>
+</html>

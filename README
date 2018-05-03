@@ -1,0 +1,33 @@
+## README
+
+1. Spring boot / Mysql / Gradle 로 개발하였습니다.
+   (로컬에 Mysql이 설치되어야 띄울수 있습니다. 서버설치후 워크벤치같은 툴 설치해서
+   resources/static/doc 하위에 있는 DDL/DML 돌리시면 디비설정은 대략적으로 끝이납니다.)
+
+2. 프로젝트를 실행하거나 개발하려면 롬복을 설치해야합니다. (lombok)
+   (Intellij IDEA 로 저는 개발하였는데.. Intellij 전체 환경설정에서 plugin 선택후 웹브라우저
+   repository를 선택해서 lombok 검색하여 설치를 진행합니다.
+   그리고 전체 환경설정에서 Build, Execution, Deployment 탭에서 Annotation Processors에서
+   Enable annotation processiong 체크를 하시면 설정이 마무리가 됩니다.)
+
+3. 기본적인 환경 구성은 src/main/resources/application.properties 를 참고부탁드립니다.
+   (디비설정도 이 프로퍼티에 들어있습니다. 사용자 환경에 맞게 변경하시면 됩니다.)
+
+4. 템플릿 엔진은  thymeleaf 를 사용하였습니다. 기초적인것들만 사용해서 조금 미흡할수 있습니다.
+
+5. WAR 로 결과물이 나오게 하였고 appMonAdminWeb/build/libs 아래에 WAR파일이 생성됩니다.
+
+6. 처음 받고나서는 resouces 폴더를 resouces로 지정해야 빌드시에 resouces에 있는 것들이 빌드가 됩니다.
+   (프로젝트 오른쪽버튼 - Open Module Settings - Modules - 해당 프로젝트 선택 후 resouces폴더 선택후
+   상위에 resouces 탭 선택 후 확인하시면 됩니다.)
+
+7. .gitignore도 추가해놓았습니다. git에 커밋할때 불필요한 파일은 제외부탁드립니다.
+   대략적으로 했는데 빠진게 있을수도 있으니 참고 부탁드립니다.
+
+# 추가로 해야할 사항들
+1. 대시보드에 추가할 기능 논의 및 대시보드 개발
+2. 기타 버그 확인
+3. 로그인 페이지 및 회원삭제 기능 추가?
+4. 엘라스틱서치 설정 및 샤딩 확인
+
+

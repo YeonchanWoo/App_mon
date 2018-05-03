@@ -1,0 +1,36 @@
+<div class="x_panel" th:fragment="table_realtime">
+    <div class="x_title">
+        <h2>실시간 상세현황<small>최대 10000건까지 노출</small></h2>
+        <div class="clearfix"></div>
+    </div>
+    <div class="x_content">
+        <table id="datatable-responsive" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
+            <colgroup>
+                <col width="100px"/>
+                <col width="100px"/>
+                <col width=""/>
+                <col width="100px"/>
+                <col width="70px"/>
+            </colgroup>
+            <thead>
+            <tr>
+                <th style="text-align:center;">발생시간</th>
+                <th style="text-align:center;">에러명</th>
+                <th style="text-align:center;">에러메세지</th>
+                <th style="text-align:center;">앱구분</th>
+                <th style="text-align:center;">앱버전</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="result : ${results}" th:if="${results != null}">
+                <td style="text-align:center;" th:text="${result.err_time}"></td>
+                <td style="text-align:center;" th:text="${result.err_name}"></td>
+                <td th:text="${result.err_message}">}</td>
+                <td style="text-align:center;" th:text="${result.app_gubun}"></td>
+                <td style="text-align:center;" th:text="${result.app_ver}">}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+

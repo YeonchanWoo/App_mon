@@ -1,0 +1,56 @@
+<div class="x_panel" th:fragment="appManager">
+    <div class="x_title">
+        <div class="col-md-3">
+            <h2>앱 설정</h2>
+        </div>
+
+        <div class="clearfix"></div>
+    </div>
+    <div class="x_content">
+        <form action="" id="imageUploadForm" method="post" enctype="multipart/form-data">
+            <table class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
+                <colgroup>
+                    <col width="25%"/>
+                    <col width="25%"/>
+                    <col width="25%"/>
+                    <col width="25%"/>
+                </colgroup>
+                <thead>
+                <tr >
+                    <th style="text-align:center;"  colspan="6">항목</th>
+                </tr>
+                </thead>
+                <tbody >
+                <tr >
+                    <td valign="center" style="text-align:center;">썸네일 업로드</td>
+                    <td valign="center" colspan="3">
+                        <input type="file" name="imageFile" id="imageFile" />
+                        <input type="hidden" name="imageFileName" id="imageFileName"/>
+                    </td>
+                </tr>
+                <tr >
+                    <td valign="center" style="text-align:center;">앱이름</td>
+                    <td valign="center" align="center">
+                        <input type="text" id="appName" name="appName" style="width:170px;" maxlength="100" />
+                    </td>
+                    <td valign="center" style="text-align:center;">앱구분</td>
+                    <td valign="middle" align="center" >
+                        <input type="text" id="appDivision" name="appDivision" style="width:170px;" maxlength="100" />
+                    </td>
+
+                </tr>
+                <tr valign="middle">
+                    <td align="right" colspan="4" >
+                        <button type="button" class="btn btn-info btn-sm" onClick="updateApps()" >입력/수정</button>
+                        <button type="button" class="btn btn-dark btn-sm" onClick="cancelApps()" >취소</button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </form>
+    </div>
+</div>
+
+<div class="x_panel" th:fragment="list">
+    <div th:replace="/settings/component/apps/app_list.html :: appList"></div>
+</div>

@@ -1,0 +1,19 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="fragments/layout">
+<head>
+    <title>실시간 대시보드</title>
+</head>
+
+<section layout:fragment="content">
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_panel" th:replace="/dashboard/component/grape_realtime.html :: grape_realtime"></div>
+        </div>
+        <div class="col-md-12 col-sm-12 col-xs-12" id="table_realtime">
+            <div class="x_panel" th:replace="/dashboard/component/table_realtime.html :: table_realtime"></div>
+        </div>
+    </div>
+</section>
+</html>

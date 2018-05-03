@@ -1,0 +1,10 @@
+## gitignore
+
+*.log
+*.bak
+
+*.war
+/.gradle
+/.idea
+/build
+/out
