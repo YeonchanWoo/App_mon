@@ -52,7 +52,6 @@
                 cls.DateTimePicker.init();
                 if('/dashboard/realtime' == window.location.pathname){
                     cls.GrapeRealtime.init();
-                    cls.TableRealtime.init();
                 }else if('/dashboard/statistics' == window.location.pathname){
                     cls.GaugeTotalCount.init();
                     cls.GrapeIosAndroid.init();
@@ -405,15 +404,14 @@
                 var month = str.substring(5, 7);
                 var day = str.substring(8, 10);
                 var hour = parseInt(str.substring(11, 13)) + 9;
-                if(hour > 24){
+                if(hour > 23){
                     hour = hour - 24;
-                    if(hour < 10){
-                        hour = "0"+hour;
-                    }
+                }
+                if(hour < 10){
+                    hour = "0"+ hour;
                 }
                 var minute = str.substring(14, 16);
                 var second = str.substring(17, 19);
-                // console.log("year : "  + year + "month : "  + month +"day : "  + day +"hour : "  + hour +"minute : "  + minute +"second : "  + second);
                 return hour + ":"+ minute +":" + second;
             }
 
@@ -428,6 +426,8 @@
      */
     var DateTimePicker = function(){
         var cls = this;
+
+        cls.rfhInterval = null;
 
         cls.init = function(){
             $('#date_timepicker_1').datetimepicker({
@@ -448,7 +448,6 @@
                 param.startDate = cls.formatDate( $('#date_timepicker_1').data("DateTimePicker").date() );
                 param.endDate =  cls.formatDate( $('#date_timepicker_2').data("DateTimePicker").date() );
                 GrapeRealtime().getData(param);
-                TableRealtime().getData(param);
             });
 
             $( "#btn_grape_statistics" ).click(function() {
@@ -463,35 +462,22 @@
             });
 
             $('#chk_refresh').change(function() {
-                alert('시작');
-                if($(this).prop('checked')){{
-                }}
-            })
+                if (document.getElementById('chk_refresh').checked){
+                    cls.rfhInterval = setInterval(function () {
+                        var param = {};
+                        GrapeRealtime().getData(param);
+                    }, 10000);
+                } else{
+                    clearInterval(cls.rfhInterval);
+                }
+            });
 
-        }
-
-        cls.chkedDate = function(){
-            var param = {};
-            param.startDate = cls.formatDate( $('#datetimepicker6').data("DateTimePicker").date() );
-            param.endDate =  cls.formatDate( $('#datetimepicker7').data("DateTimePicker").date() );
-            GrapeRealtime().getData(param);
-            TableRealtime().getData(param);
         }
 
         cls.formatDate = function(date){
-            var d = new Date(date),
-                year = d.getFullYear(),
-                month = '' + (d.getMonth() + 1),
-                day = '' + d.getDate(),
-                hour = '' + d.getHours(),
-                minute = '' + d.getMinutes(),
-                second = '' + d.getSeconds();
-            if (month.length < 2) month = '0' + month;
-            if (day.length < 2) day = '0' + day;
-            if (hour.length < 2) hour = '0' + hour;
-            if (minute.length < 2) minute = '0' + minute;
-            if (second.length < 2) second = '0' + second;
-            return [year, month, day, hour, minute, second].join('');
+            var d = new Date(date);
+           // d.setHours(d.getHours() - 9);
+            return d.toJSON();
         }
 
         return cls;
@@ -546,7 +532,12 @@
                 xAxis: [{
                     type: "category",
                     boundaryGap: !1,
-                    data : xAxis_data
+                    data : xAxis_data,
+                    axisLabel: {
+                        formatter: (function(value){
+                            return dashboard().gd(value);
+                        })
+                    }
                 }],
                 yAxis: [{
                     type: "value"
@@ -565,6 +556,19 @@
                     data : series_data
                 }]
             })
+            function eOnClick(p) {
+                if (typeof p.seriesIndex != 'undefined') {
+                    console.log(p);
+                    if('click' ==  p.type){
+                        var param = {};
+                        console.log(p.name);
+                        param.startDate = p.name;
+                        param.endDate = p.name;
+                        TableRealtime().getData(param);
+                    }
+                }
+            }
+            chart.on('click', eOnClick);
         }
 
         cls.getData = function(param){
@@ -573,7 +577,7 @@
                 var series_data = [];
                 for ( var i = 0, len = data.length; i < len; ++i) {
                     var buket = data[i];
-                    xAxis_data.push(dashboard().gd(buket.keyAsString));
+                    xAxis_data.push(buket.keyAsString);
                     series_data.push(buket.docCount);
                 }
                 cls.getGrape(xAxis_data, series_data);
