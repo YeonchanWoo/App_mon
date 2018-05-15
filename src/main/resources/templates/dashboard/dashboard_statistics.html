@@ -14,6 +14,15 @@
                     <h2>통계 대시보드</h2>
                 </div>
 
+                <div style="float:left;">
+                    앱선택 :
+                    <select th:field="*{appList}" th:remove="all-but-first">
+                        <option th:each="list : ${appList}"
+                                th:value="${list.appDivision}" th:text="${list.appName}"></option>
+                        <option value="">선택</option>
+                    </select>
+                </div>
+
                 <div class="col-md-6 col-sm-6 col-xs-12" style="float:right;">
                     <div class="col-md-5">
                         <div class="form-group">
