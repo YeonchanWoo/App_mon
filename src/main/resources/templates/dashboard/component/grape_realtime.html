@@ -7,10 +7,10 @@
         <div style="float:left;">
             앱선택 :
             <select >
-                <option value="">선택</option>
-                <option th:each="list : ${appList}"
-                        th:value="${list.appDivision}" th:text="${list.appName}"></option>
-            </select>
+            <option value="">선택</option>
+            <option th:each="list : ${appList}"
+                    th:value="${list.appDivision}" th:text="${list.appName}"></option>
+        </select>
         </div>
 
         <div class="col-md-6 col-sm-6 col-xs-12" style="float:right;">
