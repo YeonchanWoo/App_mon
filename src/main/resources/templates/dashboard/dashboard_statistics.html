@@ -24,7 +24,7 @@
                 </div>
 
                 <div class="col-md-6 col-sm-6 col-xs-12" style="float:right;">
-                    <div class="col-md-5">
+                    <div class="col-md-4">
                         <div class="form-group">
                             <div class='input-group date' id='date_timepicker_1'>
                                 <input type='text' class="form-control" />
@@ -34,16 +34,29 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-5">
+                    <div class="col-md-4">
                         <div class="form-group">
                             <div class='input-group date' id='date_timepicker_2'>
                                 <input type='text' class="form-control" />
                                 <span class="input-group-addon">
-                        <span class="glyphicon glyphicon-calendar"></span>
-                    </span>
+                                    <span class="glyphicon glyphicon-calendar"></span>
+                                </span>
                             </div>
                         </div>
                     </div>
+
+                    <div class="col-md-2">
+                        <select id="dateSelect" name="dateSelect">
+                            <option value="1">15분</option>
+                            <option value="2">1시간</option>
+                            <option value="3">12시간</option>
+                            <option value="4">1일</option>
+                            <option value="5">1주일</option>
+                            <option value="6">1개월</option>
+                            <option value="7">3개월</option>
+                        </select>
+                    </div>
+
                     <div class="col-md-1">
                         <button type="button" class="btn btn-info" id="btn_grape_statistics">조회</button>
                     </div>

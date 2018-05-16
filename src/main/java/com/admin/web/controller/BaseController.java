@@ -1,5 +1,6 @@
 package com.admin.web.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.admin.web.dto.Apps;
@@ -45,7 +46,20 @@ public class BaseController {
 
 	@ModelAttribute("appList")
 	private List<Apps> appsList(){
-		return  settingsService.selectAppsList(null);
+        UserSession userSession = (UserSession)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        List<Apps> appList = new ArrayList<Apps>();
+
+        if(userSession.getGrpAlias().equals("admin") || userSession.getGrpAlias().toUpperCase().equals("ADMIN")){
+            appList = settingsService.selectAppsList(null);
+        }else{
+            String grpAlias = userSession.getGrpAlias();
+
+            Apps apps = new Apps();
+            apps.setGrpAlias(grpAlias);
+
+            appList = settingsService.selectAppsList(apps);
+        }
+        return  appList;
 	}
 	
 }

@@ -26,6 +26,11 @@
             UPT_DATE uptDate
         FROM TB_APPS
         WHERE 1=1
+    ]]>
+        <if test="apps != null and apps.grpAlias != null">
+            AND APP_DIVISION = #{apps.grpAlias}
+        </if>
+    <![CDATA[
         ORDER BY APP_NAME ASC
     ]]>
     </select>

@@ -437,6 +437,13 @@
                 format : 'YYYY-MM-DD HH:mm:ss'
                 ,useCurrent: false //Important! See issue #1075
             });
+
+            var now = new Date();
+            $('#date_timepicker_2').datetimepicker().data('DateTimePicker').date(now);
+
+            now.setMinutes(now.getMinutes() - 15);
+            $('#date_timepicker_1').datetimepicker().data('DateTimePicker').date(now);
+
             $("#date_timepicker_1").on("dp.change", function (e) {
                 $('#date_timepicker_2').data("DateTimePicker").minDate(e.date);
             });
@@ -470,6 +477,57 @@
                 } else{
                     clearInterval(cls.rfhInterval);
                 }
+            });
+
+            $('#dateSelect').change(function(){
+                if($('#dateSelect').val() == '1'){
+                    var now = new Date();
+                    $('#date_timepicker_2').datetimepicker().data('DateTimePicker').date(now);
+
+                    now.setMinutes(now.getMinutes() - 15);
+                    $('#date_timepicker_1').datetimepicker().data('DateTimePicker').date(now);
+                }else if($('#dateSelect').val() == '2'){
+                    var now = new Date();
+                    $('#date_timepicker_2').datetimepicker().data('DateTimePicker').date(now);
+
+                    now.setHours(now.getHours() - 1);
+                    $('#date_timepicker_1').datetimepicker().data('DateTimePicker').date(now);
+
+                }else if($('#dateSelect').val() == '3'){
+                    var now = new Date();
+                    $('#date_timepicker_2').datetimepicker().data('DateTimePicker').date(now);
+
+                    now.setHours(now.getHours() - 12);
+                    $('#date_timepicker_1').datetimepicker().data('DateTimePicker').date(now);
+
+                }else if($('#dateSelect').val() == '4'){
+                    var now = new Date();
+                    $('#date_timepicker_2').datetimepicker().data('DateTimePicker').date(now);
+
+                    now.setDate(now.getDate() - 1);
+                    $('#date_timepicker_1').datetimepicker().data('DateTimePicker').date(now);
+
+                }else if($('#dateSelect').val() == '5'){
+                    var now = new Date();
+                    $('#date_timepicker_2').datetimepicker().data('DateTimePicker').date(now);
+
+                    now.setDate(now.getDate() - 7);
+                    $('#date_timepicker_1').datetimepicker().data('DateTimePicker').date(now);
+
+                }else if($('#dateSelect').val() == '6'){
+                    var now = new Date();
+                    $('#date_timepicker_2').datetimepicker().data('DateTimePicker').date(now);
+
+                    now.setMonth(now.getMonth() -1);
+                    $('#date_timepicker_1').datetimepicker().data('DateTimePicker').date(now);
+
+                }else if($('#dateSelect').val() == '7'){
+                    var now = new Date();
+                    $('#date_timepicker_2').datetimepicker().data('DateTimePicker').date(now);
+
+                    now.setMonth(now.getMonth() -3);
+                    $('#date_timepicker_1').datetimepicker().data('DateTimePicker').date(now);
+               }
             });
 
         }
