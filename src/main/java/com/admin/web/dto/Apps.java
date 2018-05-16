@@ -14,4 +14,5 @@ public class Apps {
     private String appDivision;
     private Date regDate;
     private Date uptDate;
+    private String grpAlias;
 }
