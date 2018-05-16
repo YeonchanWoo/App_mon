@@ -50,14 +50,18 @@
             cls.init = function(){
                 cls.sidebar();
                 cls.DateTimePicker.init();
+
+                var param = {};
+                param.appDivision = $("#app_list option:selected").val();
+
                 if('/dashboard/realtime' == window.location.pathname){
-                    cls.GrapeRealtime.init();
+                    cls.GrapeRealtime.init(param);
                 }else if('/dashboard/statistics' == window.location.pathname){
-                    cls.GaugeTotalCount.init();
-                    cls.GrapeIosAndroid.init();
-                    cls.PieChartOS.init();
-                    cls.PieChartVersion.init();
-                    cls.PieChartDevice.init();
+                    cls.GaugeTotalCount.init(param);
+                    cls.GrapeIosAndroid.init(param);
+                    cls.PieChartOS.init(param);
+                    cls.PieChartVersion.init(param);
+                    cls.PieChartDevice.init(param);
                 }
             }
 
@@ -447,6 +451,7 @@
                 var param = {};
                 param.startDate = cls.formatDate( $('#date_timepicker_1').data("DateTimePicker").date() );
                 param.endDate =  cls.formatDate( $('#date_timepicker_2').data("DateTimePicker").date() );
+                param.appDivision = $("#app_list option:selected").val();
                 GrapeRealtime().getData(param);
             });
 
@@ -454,6 +459,7 @@
                 var param = {};
                 param.startDate = cls.formatDate( $('#date_timepicker_1').data("DateTimePicker").date() );
                 param.endDate =  cls.formatDate( $('#date_timepicker_2').data("DateTimePicker").date() );
+                param.appDivision = $("#app_list option:selected").val();
                 GaugeTotalCount().getData(param);
                 GrapeIosAndroid().getData(param);
                 PieChartOS().getData(param);
@@ -465,6 +471,7 @@
                 if (document.getElementById('chk_refresh').checked){
                     cls.rfhInterval = setInterval(function () {
                         var param = {};
+                        param.appDivision = $("#app_list option:selected").val();
                         GrapeRealtime().getData(param);
                     }, 10000);
                 } else{
@@ -492,8 +499,8 @@
         var cls = this;
         cls.APIUrl = "/component/grape/realtime";
 
-        cls.init = function(){
-            cls.getData();
+        cls.init = function(param){
+            cls.getData(param);
         }
 
         cls.getGrape = function(xAxis_data, series_data){
@@ -558,12 +565,11 @@
             })
             function eOnClick(p) {
                 if (typeof p.seriesIndex != 'undefined') {
-                    console.log(p);
                     if('click' ==  p.type){
                         var param = {};
-                        console.log(p.name);
                         param.startDate = p.name;
                         param.endDate = p.name;
+                        param.appDivision = $("#app_list option:selected").val();
                         TableRealtime().getData(param);
                     }
                 }
@@ -597,8 +603,8 @@
         var cls = this;
         cls.APIUrl = "/component/table/realtime";
 
-        cls.init = function(){
-            cls.getData();
+        cls.init = function(param){
+            cls.getData(param);
         }
 
         cls.getData = function(param){
@@ -611,82 +617,19 @@
 
         cls.init_DataTables = function() {
             if( typeof ($.fn.DataTable) === 'undefined'){ return; }
-            var handleDataTableButtons = function() {
-                if ($("#datatable-buttons").length) {
-                    $("#datatable-buttons").DataTable({
-                        dom: "Bfrtip",
-                        buttons: [
-                            {
-                                extend: "copy",
-                                className: "btn-sm"
-                            },
-                            {
-                                extend: "csv",
-                                className: "btn-sm"
-                            },
-                            {
-                                extend: "excel",
-                                className: "btn-sm"
-                            },
-                            {
-                                extend: "pdfHtml5",
-                                className: "btn-sm"
-                            },
-                            {
-                                extend: "print",
-                                className: "btn-sm"
-                            },
-                        ],
-                        responsive: true
-                    });
-                }
-            };
-
-            TableManageButtons = function() {
-                "use strict";
-                return {
-                    init: function() {
-                        handleDataTableButtons();
-                    }
-                };
-            }();
-
-            $('#datatable').dataTable();
 
             $('#datatable-keytable').DataTable({
                 keys: true
             });
 
-            $('#datatable-responsive').DataTable();
 
-            $('#datatable-scroller').DataTable({
-                ajax: "js/datatables/json/scroller-demo.json",
-                deferRender: true,
-                scrollY: 380,
-                scrollCollapse: true,
-                scroller: true
+            $('#datatable-responsive').DataTable({
+                mark: true
             });
 
             $('#datatable-fixed-header').DataTable({
                 fixedHeader: true
             });
-
-            var $datatable = $('#datatable-checkbox');
-
-            $datatable.dataTable({
-                'order': [[ 1, 'asc' ]],
-                'columnDefs': [
-                    { orderable: false, targets: [0] }
-                ]
-            });
-            $datatable.on('draw.dt', function() {
-                $('checkbox input').iCheck({
-                    checkboxClass: 'icheckbox_flat-green'
-                });
-            });
-
-            TableManageButtons.init();
-
         };
         return cls;
     }
@@ -700,8 +643,8 @@
         var cls = this;
         cls.APIUrl = "/component/gauge/count";
 
-        cls.init = function(){
-            cls.getData();
+        cls.init = function(param){
+            cls.getData(param);
         }
 
         cls.getGrape = function(result_data){
@@ -838,8 +781,8 @@
         var cls = this;
         cls.APIUrl = "/component/grape/IosAndroid";
 
-        cls.init = function(){
-            cls.getData();
+        cls.init = function(param){
+            cls.getData(param);
         }
 
         cls.getGrape = function(xAxis_data, series_data_ios, series_data_android){
@@ -908,8 +851,8 @@
         var cls = this;
         cls.APIUrl = "/component/piechart/os";
 
-        cls.init = function(){
-            cls.getData();
+        cls.init = function(param){
+            cls.getData(param);
         }
 
         cls.getGrape = function(result_data){
@@ -989,8 +932,8 @@
         var cls = this;
         cls.APIUrl = "/component/piechart/version";
 
-        cls.init = function(){
-            cls.getData();
+        cls.init = function(param){
+            cls.getData(param);
         }
 
         cls.getGrape = function(legend_data, result_data){
@@ -1065,8 +1008,8 @@
         var cls = this;
         cls.APIUrl = "/component/piechart/device";
 
-        cls.init = function(){
-            cls.getData();
+        cls.init = function(param){
+            cls.getData(param);
         }
 
         cls.getGrape = function(legend_data, result_data){

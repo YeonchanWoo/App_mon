@@ -35,10 +35,11 @@ public class DashBoardController extends BaseController{
 	@RequestMapping( value = "/component/grape/realtime", method = RequestMethod.GET )
 	@ResponseBody
 	public  Collection<Histogram.Bucket> realTimeGrape(Model model
+			, @RequestParam(value="appDivision", defaultValue = "", required = false) String appDivision
 			, @RequestParam(value="startDate", defaultValue = "", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime startDate
 			, @RequestParam(value="endDate", defaultValue = "", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime endDate	){
-		SearchResponse searchResponse = dashBoardService.getGrapeRealtime(startDate, endDate);
-		if(null != searchResponse){
+		SearchResponse searchResponse = dashBoardService.getGrapeRealtime(appDivision, startDate, endDate);
+		if(null != searchResponse && null != searchResponse.getAggregations()){
 			Histogram aggregations = searchResponse.getAggregations().get("agg");
 			return  (Collection<Histogram.Bucket>) aggregations.getBuckets();
 		}
@@ -48,9 +49,10 @@ public class DashBoardController extends BaseController{
 	@RequestMapping( value = "/component/table/realtime", method = RequestMethod.GET )
 	@ResponseBody
 	public ModelAndView realTimeTable(Model model
+			, @RequestParam(value="appDivision", defaultValue = "", required = false) String appDivision
 			, @RequestParam(value="startDate", defaultValue = "", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime startDate
 			, @RequestParam(value="endDate", defaultValue = "", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime endDate){
-		List<HitSource> results = dashBoardService.getTableRealtime(startDate, endDate);
+		List<HitSource> results = dashBoardService.getTableRealtime(appDivision, startDate, endDate);
 		if(null != results){
 			return new ModelAndView(VIEW_PATH+COMPONENT_PATH+"table_realtime", "results", results);
 		}

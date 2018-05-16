@@ -8,12 +8,12 @@ import java.util.List;
 import java.util.Map;
 
 public interface DashBoardService {
-    SearchResponse getGrapeRealtime(LocalDateTime startDate, LocalDateTime endDate);
-    List<HitSource> getTableRealtime(LocalDateTime startDate, LocalDateTime endDate);
-    SearchResponse getGaugeTotalCount(LocalDateTime startDate, LocalDateTime endDate);
-    SearchResponse getGrapeIosAndroid(LocalDateTime startDate, LocalDateTime endDate);
-    SearchResponse getPieChartOs(LocalDateTime startDate, LocalDateTime endDate);
-    SearchResponse getPieChartVersion(LocalDateTime startDate, LocalDateTime endDate);
-    SearchResponse getPieChartDevice(LocalDateTime startDate, LocalDateTime endDate);
+    SearchResponse getGrapeRealtime(String appDivision, LocalDateTime startDate, LocalDateTime endDate);
+    List<HitSource> getTableRealtime(String appDivision,LocalDateTime startDate, LocalDateTime endDate);
+    SearchResponse getGaugeTotalCount(String appDivision,LocalDateTime startDate, LocalDateTime endDate);
+    SearchResponse getGrapeIosAndroid(String appDivision,LocalDateTime startDate, LocalDateTime endDate);
+    SearchResponse getPieChartOs(String appDivision,LocalDateTime startDate, LocalDateTime endDate);
+    SearchResponse getPieChartVersion(String appDivision,LocalDateTime startDate, LocalDateTime endDate);
+    SearchResponse getPieChartDevice(String appDivision,LocalDateTime startDate, LocalDateTime endDate);
     Map<String, LocalDateTime> settingDate(LocalDateTime startDate, LocalDateTime endDate);
 }

@@ -36,16 +36,18 @@ public class DashBoardServiceImpl implements DashBoardService {
     @Value("${elasticsearch.search.size}") private String searchSize;
 
     @Override
-    public SearchResponse getGrapeRealtime(LocalDateTime startDate, LocalDateTime endDate) {
+    public SearchResponse getGrapeRealtime(String appDivision, LocalDateTime startDate, LocalDateTime endDate) {
         try {
             RestHighLevelClient client = new RestHighLevelClient(
                     RestClient.builder(new HttpHost(host, Integer.parseInt(port)))
             );
+
+            String index = appDivision+"*";
             Map<String, LocalDateTime> DateMap = settingDate(startDate, endDate);
             LocalDateTime sDate = DateMap.get("startDate");
             LocalDateTime eDate= DateMap.get("endDate");
 
-            SearchRequest searchRequest = new SearchRequest("appmon*");
+            SearchRequest searchRequest = new SearchRequest(index);
             SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
             searchSourceBuilder.query(QueryBuilders.rangeQuery("@timestamp").to(eDate).from(sDate));
             ExtendedBounds extendedBounds = new ExtendedBounds( String.valueOf(sDate), String.valueOf(eDate) );
@@ -55,7 +57,7 @@ public class DashBoardServiceImpl implements DashBoardService {
                             .field("@timestamp")
                             .minDocCount(0)
                             .extendedBounds(extendedBounds)
-                            .dateHistogramInterval(DateHistogramInterval.MINUTE);
+                            .dateHistogramInterval(DateHistogramInterval.seconds(30));
             searchSourceBuilder.aggregation(aggregation);
             searchRequest.source(searchSourceBuilder);
             SearchResponse searchResponse = client.search(searchRequest);
@@ -68,16 +70,17 @@ public class DashBoardServiceImpl implements DashBoardService {
     }
 
     @Override
-    public List<HitSource> getTableRealtime(LocalDateTime startDate, LocalDateTime endDate) {
+    public List<HitSource> getTableRealtime(String appDivision, LocalDateTime startDate, LocalDateTime endDate) {
         try {
             RestHighLevelClient client = new RestHighLevelClient(
                     RestClient.builder(new HttpHost(host, Integer.parseInt(port)))
             );
+            String index = appDivision+"*";
             Map<String, LocalDateTime> DateMap = settingDate(startDate, endDate);
             LocalDateTime sDate = DateMap.get("startDate");
             LocalDateTime eDate= DateMap.get("endDate");
 
-            SearchRequest searchRequest = new SearchRequest("appmon*");
+            SearchRequest searchRequest = new SearchRequest(index);
             SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
             searchSourceBuilder.query(QueryBuilders.rangeQuery("@timestamp").to(eDate).from(sDate));
             searchSourceBuilder.size(Integer.parseInt(searchSize));
@@ -118,16 +121,17 @@ public class DashBoardServiceImpl implements DashBoardService {
     }
 
     @Override
-    public SearchResponse getGaugeTotalCount(LocalDateTime startDate, LocalDateTime endDate) {
+    public SearchResponse getGaugeTotalCount(String appDivision, LocalDateTime startDate, LocalDateTime endDate) {
         try {
             RestHighLevelClient client = new RestHighLevelClient(
                     RestClient.builder(new HttpHost(host, Integer.parseInt(port)))
             );
+            String index = appDivision+"*";
             Map<String, LocalDateTime> DateMap = settingDate(startDate, endDate);
             LocalDateTime sDate = DateMap.get("startDate");
             LocalDateTime eDate= DateMap.get("endDate");
 
-            SearchRequest searchRequest = new SearchRequest("appmon*");
+            SearchRequest searchRequest = new SearchRequest(index);
             SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
             searchSourceBuilder.query(QueryBuilders.rangeQuery("@timestamp").to(eDate).from(sDate));
             AggregationBuilder aggregation =
@@ -147,16 +151,17 @@ public class DashBoardServiceImpl implements DashBoardService {
     }
 
     @Override
-    public SearchResponse getGrapeIosAndroid(LocalDateTime startDate, LocalDateTime endDate) {
+    public SearchResponse getGrapeIosAndroid(String appDivision, LocalDateTime startDate, LocalDateTime endDate) {
         try {
             RestHighLevelClient client = new RestHighLevelClient(
                     RestClient.builder(new HttpHost(host, Integer.parseInt(port)))
                     );
+            String index = appDivision+"*";
             Map<String, LocalDateTime> DateMap = settingDate(startDate, endDate);
             LocalDateTime sDate = DateMap.get("startDate");
             LocalDateTime eDate= DateMap.get("endDate");
 
-            SearchRequest searchRequest = new SearchRequest("appmon*");
+            SearchRequest searchRequest = new SearchRequest(index);
             SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
             searchSourceBuilder.query(QueryBuilders.rangeQuery("@timestamp").to(eDate).from(sDate));
             ExtendedBounds extendedBounds = new ExtendedBounds( String.valueOf(sDate), String.valueOf(eDate) );
@@ -173,7 +178,7 @@ public class DashBoardServiceImpl implements DashBoardService {
                             .field("@timestamp")
                             .minDocCount(0)
                             .extendedBounds(extendedBounds)
-                            .dateHistogramInterval(DateHistogramInterval.MINUTE)
+                            .dateHistogramInterval(DateHistogramInterval.seconds(30))
                             .subAggregation(subAgg);
             searchSourceBuilder.aggregation(aggregation);
             searchRequest.source(searchSourceBuilder);
@@ -187,16 +192,17 @@ public class DashBoardServiceImpl implements DashBoardService {
     }
 
     @Override
-    public SearchResponse getPieChartOs(LocalDateTime startDate, LocalDateTime endDate) {
+    public SearchResponse getPieChartOs(String appDivision, LocalDateTime startDate, LocalDateTime endDate) {
         try {
             RestHighLevelClient client = new RestHighLevelClient(
                     RestClient.builder(new HttpHost(host, Integer.parseInt(port)))
                     );
+            String index = appDivision+"*";
             Map<String, LocalDateTime> DateMap = settingDate(startDate, endDate);
             LocalDateTime sDate = DateMap.get("startDate");
             LocalDateTime eDate= DateMap.get("endDate");
 
-            SearchRequest searchRequest = new SearchRequest("appmon*");
+            SearchRequest searchRequest = new SearchRequest(index);
             SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
             searchSourceBuilder.query(QueryBuilders.rangeQuery("@timestamp").to(eDate).from(sDate));
             AggregationBuilder aggregation =
@@ -216,16 +222,17 @@ public class DashBoardServiceImpl implements DashBoardService {
     }
 
     @Override
-    public SearchResponse getPieChartVersion(LocalDateTime startDate, LocalDateTime endDate) {
+    public SearchResponse getPieChartVersion(String appDivision, LocalDateTime startDate, LocalDateTime endDate) {
         try {
             RestHighLevelClient client = new RestHighLevelClient(
                     RestClient.builder(new HttpHost(host, Integer.parseInt(port)))
             );
+            String index = appDivision+"*";
             Map<String, LocalDateTime> DateMap = settingDate(startDate, endDate);
             LocalDateTime sDate = DateMap.get("startDate");
             LocalDateTime eDate= DateMap.get("endDate");
 
-            SearchRequest searchRequest = new SearchRequest("appmon*");
+            SearchRequest searchRequest = new SearchRequest(index);
             SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
             searchSourceBuilder.query(QueryBuilders.rangeQuery("@timestamp").to(eDate).from(sDate));
             AggregationBuilder aggregation =
@@ -244,16 +251,17 @@ public class DashBoardServiceImpl implements DashBoardService {
     }
 
     @Override
-    public SearchResponse getPieChartDevice(LocalDateTime startDate, LocalDateTime endDate) {
+    public SearchResponse getPieChartDevice(String appDivision, LocalDateTime startDate, LocalDateTime endDate) {
         try {
             RestHighLevelClient client = new RestHighLevelClient(
                     RestClient.builder(new HttpHost(host, Integer.parseInt(port)))
             );
+            String index = appDivision+"*";
             Map<String, LocalDateTime> DateMap = settingDate(startDate, endDate);
             LocalDateTime sDate = DateMap.get("startDate");
             LocalDateTime eDate= DateMap.get("endDate");
 
-            SearchRequest searchRequest = new SearchRequest("appmon*");
+            SearchRequest searchRequest = new SearchRequest(index);
             SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
             searchSourceBuilder.query(QueryBuilders.rangeQuery("@timestamp").to(eDate).from(sDate));
             AggregationBuilder aggregation =
@@ -278,7 +286,7 @@ public class DashBoardServiceImpl implements DashBoardService {
             Calendar cal = Calendar.getInstance();
             cal.add(Calendar.HOUR, -9);
             LocalDateTime eDate = new Timestamp(cal.getTime().getTime()).toLocalDateTime();
-            cal.add(Calendar.MINUTE, -10);
+            cal.add(Calendar.MINUTE, -5);
             LocalDateTime sDate = new Timestamp(cal.getTime().getTime()).toLocalDateTime();
             map.put("startDate", sDate);
             map.put("endDate", eDate);

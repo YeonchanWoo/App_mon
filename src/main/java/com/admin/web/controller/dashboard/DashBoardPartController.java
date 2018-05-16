@@ -38,9 +38,10 @@ public class DashBoardPartController extends BaseController{
 	@RequestMapping( value = "/component/gauge/count", method = RequestMethod.GET )
 	@ResponseBody
 	public Bucket gaugeCount(Model model
+			, @RequestParam(value="appDivision", defaultValue = "", required = false) String appDivision
 			, @RequestParam(value="startDate", defaultValue = "", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime startDate
 			, @RequestParam(value="endDate", defaultValue = "", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime endDate	){
-		SearchResponse searchResponse = dashBoardService.getGaugeTotalCount(startDate, endDate);
+		SearchResponse searchResponse = dashBoardService.getGaugeTotalCount(appDivision, startDate, endDate);
 		if(null != searchResponse){
 			Bucket bucket = new Bucket();
 			bucket.setKey("totalCount");
@@ -53,10 +54,11 @@ public class DashBoardPartController extends BaseController{
 	@RequestMapping( value = "/component/grape/IosAndroid", method = RequestMethod.GET )
 	@ResponseBody
 	public   Map<String, List<Bucket>> GrapeIosAndroid(Model model
+			, @RequestParam(value="appDivision", defaultValue = "", required = false) String appDivision
 			, @RequestParam(value="startDate", defaultValue = "", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime startDate
 			, @RequestParam(value="endDate", defaultValue = "", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime endDate	){
-		SearchResponse searchResponse = dashBoardService.getGrapeIosAndroid(startDate, endDate);
-		if(null != searchResponse){
+		SearchResponse searchResponse = dashBoardService.getGrapeIosAndroid(appDivision, startDate, endDate);
+		if(null != searchResponse && null != searchResponse.getAggregations()){
 			Histogram aggregations = searchResponse.getAggregations().get("agg");
 			Map<String, List<Bucket>> resultMap = new HashMap<String, List<Bucket>>();
 			for (Histogram .Bucket entry : aggregations.getBuckets()) {
@@ -74,10 +76,11 @@ public class DashBoardPartController extends BaseController{
 	@RequestMapping( value = "/component/piechart/os", method = RequestMethod.GET )
 	@ResponseBody
 	public  List<Bucket> pieChartOs(Model model
+			, @RequestParam(value="appDivision", defaultValue = "", required = false) String appDivision
 			, @RequestParam(value="startDate", defaultValue = "", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime startDate
 			, @RequestParam(value="endDate", defaultValue = "", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime endDate	){
-		SearchResponse searchResponse = dashBoardService.getPieChartOs(startDate, endDate);
-		if(null != searchResponse){
+		SearchResponse searchResponse = dashBoardService.getPieChartOs(appDivision, startDate, endDate);
+		if(null != searchResponse && null != searchResponse.getAggregations()){
 			Filters agg = searchResponse.getAggregations().get("agg");
 			List<Bucket> results = new ArrayList<Bucket>();
 			for (Filters.Bucket entry : agg.getBuckets()) {
@@ -94,10 +97,11 @@ public class DashBoardPartController extends BaseController{
 	@RequestMapping( value = "/component/piechart/version", method = RequestMethod.GET )
 	@ResponseBody
 	public  List<Bucket> pieChartVersion(Model model
+			, @RequestParam(value="appDivision", defaultValue = "", required = false) String appDivision
 			, @RequestParam(value="startDate", defaultValue = "", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime startDate
 			, @RequestParam(value="endDate", defaultValue = "", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime endDate	){
-		SearchResponse searchResponse = dashBoardService.getPieChartVersion(startDate, endDate);
-		if(null != searchResponse){
+		SearchResponse searchResponse = dashBoardService.getPieChartVersion(appDivision, startDate, endDate);
+		if(null != searchResponse && null != searchResponse.getAggregations()){
 			Terms agg = searchResponse.getAggregations().get("agg");
 			List<Bucket> results = new ArrayList<Bucket>();
 			for (Terms .Bucket entry : agg.getBuckets()) {
@@ -114,10 +118,11 @@ public class DashBoardPartController extends BaseController{
 	@RequestMapping( value = "/component/piechart/device", method = RequestMethod.GET )
 	@ResponseBody
 	public  List<Bucket> pieChartDevice(Model model
+			, @RequestParam(value="appDivision", defaultValue = "", required = false) String appDivision
 			, @RequestParam(value="startDate", defaultValue = "", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime startDate
 			, @RequestParam(value="endDate", defaultValue = "", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime endDate	){
-		SearchResponse searchResponse = dashBoardService.getPieChartDevice(startDate, endDate);
-		if(null != searchResponse){
+		SearchResponse searchResponse = dashBoardService.getPieChartDevice(appDivision, startDate, endDate);
+		if(null != searchResponse && null != searchResponse.getAggregations()){
 			Terms agg = searchResponse.getAggregations().get("agg");
 			List<Bucket> results = new ArrayList<Bucket>();
 			for (Terms .Bucket entry : agg.getBuckets()) {
