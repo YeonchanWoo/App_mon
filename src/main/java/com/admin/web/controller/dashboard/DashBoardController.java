@@ -37,7 +37,11 @@ public class DashBoardController extends BaseController{
 	public  Collection<Histogram.Bucket> realTimeGrape(Model model
 			, @RequestParam(value="startDate", defaultValue = "", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime startDate
 			, @RequestParam(value="endDate", defaultValue = "", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime endDate	){
-		SearchResponse searchResponse = dashBoardService.getGrapeRealtime(startDate, endDate);
+
+	    System.out.print(endDate);
+        System.out.print(startDate);
+
+	    SearchResponse searchResponse = dashBoardService.getGrapeRealtime(startDate, endDate);
 		if(null != searchResponse){
 			Histogram aggregations = searchResponse.getAggregations().get("agg");
 			return  (Collection<Histogram.Bucket>) aggregations.getBuckets();
@@ -50,10 +54,6 @@ public class DashBoardController extends BaseController{
 	public ModelAndView realTimeTable(Model model
 			, @RequestParam(value="startDate", defaultValue = "", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime startDate
 			, @RequestParam(value="endDate", defaultValue = "", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime endDate){
-
-		System.out.print(endDate);
-		System.out.print(startDate);
-
 		List<HitSource> results = dashBoardService.getTableRealtime(startDate, endDate);
 		if(null != results){
 			return new ModelAndView(VIEW_PATH+COMPONENT_PATH+"table_realtime", "results", results);
