@@ -1,10 +1,13 @@
 package com.admin.web.controller.dashboard;
 
 import com.admin.web.controller.BaseController;
+import com.admin.web.controller.settings.SettingsAppsController;
 import com.admin.web.dto.HitSource;
 import com.admin.web.service.DashBoardService;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.search.aggregations.bucket.histogram.Histogram;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
@@ -21,7 +24,9 @@ import java.util.*;
 @Controller
 public class DashBoardController extends BaseController{
 
-	@Autowired
+    private static final Logger logger = LoggerFactory.getLogger(SettingsAppsController.class);
+
+    @Autowired
 	protected DashBoardService dashBoardService;
 
 	private static final String VIEW_PATH = "dashboard/";
@@ -38,7 +43,7 @@ public class DashBoardController extends BaseController{
 			, @RequestParam(value="appDivision", defaultValue = "", required = false) String appDivision
 			, @RequestParam(value="startDate", defaultValue = "", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime startDate
 			, @RequestParam(value="endDate", defaultValue = "", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime endDate	){
-		SearchResponse searchResponse = dashBoardService.getGrapeRealtime(appDivision, startDate, endDate);
+	    SearchResponse searchResponse = dashBoardService.getGrapeRealtime(appDivision, startDate, endDate);
 		if(null != searchResponse && null != searchResponse.getAggregations()){
 			Histogram aggregations = searchResponse.getAggregations().get("agg");
 			return  (Collection<Histogram.Bucket>) aggregations.getBuckets();

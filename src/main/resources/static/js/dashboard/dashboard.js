@@ -52,6 +52,8 @@
                 cls.DateTimePicker.init();
 
                 var param = {};
+                param.startDate = cls.DateTimePicker.formatDate( $('#date_timepicker_1').data("DateTimePicker").date() );
+                param.endDate =  cls.DateTimePicker.formatDate( $('#date_timepicker_2').data("DateTimePicker").date() );
                 param.appDivision = $("#app_list option:selected").val();
 
                 if('/dashboard/realtime' == window.location.pathname){
@@ -648,7 +650,7 @@
             }
             dashboard().ajaxCall('get', cls.APIUrl, param, sCallback, null, null, null);
         }
-
+        
         return cls;
     }
 
