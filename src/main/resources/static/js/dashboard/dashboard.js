@@ -447,7 +447,7 @@
             var now = new Date();
             $('#date_timepicker_2').datetimepicker().data('DateTimePicker').date(now);
 
-            now.setMinutes(now.getMinutes() - 15);
+            now.setMinutes(now.getMinutes() - 5);
             $('#date_timepicker_1').datetimepicker().data('DateTimePicker').date(now);
 
             $("#date_timepicker_1").on("dp.change", function (e) {
@@ -493,50 +493,42 @@
                     var now = new Date();
                     $('#date_timepicker_2').datetimepicker().data('DateTimePicker').date(now);
 
-                    now.setMinutes(now.getMinutes() - 15);
+                    now.setMinutes(now.getMinutes() - 5);
                     $('#date_timepicker_1').datetimepicker().data('DateTimePicker').date(now);
                 }else if($('#dateSelect').val() == '2'){
+                    var now = new Date();
+                    $('#date_timepicker_2').datetimepicker().data('DateTimePicker').date(now);
+
+                    now.setMinutes(now.getMinutes() - 15);
+                    $('#date_timepicker_1').datetimepicker().data('DateTimePicker').date(now);
+                }else if($('#dateSelect').val() == '3'){
                     var now = new Date();
                     $('#date_timepicker_2').datetimepicker().data('DateTimePicker').date(now);
 
                     now.setHours(now.getHours() - 1);
                     $('#date_timepicker_1').datetimepicker().data('DateTimePicker').date(now);
 
-                }else if($('#dateSelect').val() == '3'){
+                }else if($('#dateSelect').val() == '4'){
                     var now = new Date();
                     $('#date_timepicker_2').datetimepicker().data('DateTimePicker').date(now);
 
                     now.setHours(now.getHours() - 12);
                     $('#date_timepicker_1').datetimepicker().data('DateTimePicker').date(now);
 
-                }else if($('#dateSelect').val() == '4'){
+                }else if($('#dateSelect').val() == '5'){
                     var now = new Date();
                     $('#date_timepicker_2').datetimepicker().data('DateTimePicker').date(now);
 
                     now.setDate(now.getDate() - 1);
                     $('#date_timepicker_1').datetimepicker().data('DateTimePicker').date(now);
 
-                }else if($('#dateSelect').val() == '5'){
+                }else if($('#dateSelect').val() == '6'){
                     var now = new Date();
                     $('#date_timepicker_2').datetimepicker().data('DateTimePicker').date(now);
 
                     now.setDate(now.getDate() - 7);
                     $('#date_timepicker_1').datetimepicker().data('DateTimePicker').date(now);
-
-                }else if($('#dateSelect').val() == '6'){
-                    var now = new Date();
-                    $('#date_timepicker_2').datetimepicker().data('DateTimePicker').date(now);
-
-                    now.setMonth(now.getMonth() -1);
-                    $('#date_timepicker_1').datetimepicker().data('DateTimePicker').date(now);
-
-                }else if($('#dateSelect').val() == '7'){
-                    var now = new Date();
-                    $('#date_timepicker_2').datetimepicker().data('DateTimePicker').date(now);
-
-                    now.setMonth(now.getMonth() -3);
-                    $('#date_timepicker_1').datetimepicker().data('DateTimePicker').date(now);
-               }
+                }
             });
 
         }
@@ -650,7 +642,7 @@
             }
             dashboard().ajaxCall('get', cls.APIUrl, param, sCallback, null, null, null);
         }
-        
+
         return cls;
     }
 
