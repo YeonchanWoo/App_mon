@@ -492,40 +492,36 @@
                 if($('#dateSelect').val() == '1'){
                     var now = new Date();
                     $('#date_timepicker_2').datetimepicker().data('DateTimePicker').date(now);
-
                     now.setMinutes(now.getMinutes() - 5);
                     $('#date_timepicker_1').datetimepicker().data('DateTimePicker').date(now);
                 }else if($('#dateSelect').val() == '2'){
                     var now = new Date();
                     $('#date_timepicker_2').datetimepicker().data('DateTimePicker').date(now);
-
-                    now.setMinutes(now.getMinutes() - 15);
+                    now.setMinutes(now.getMinutes() - 10);
                     $('#date_timepicker_1').datetimepicker().data('DateTimePicker').date(now);
                 }else if($('#dateSelect').val() == '3'){
                     var now = new Date();
                     $('#date_timepicker_2').datetimepicker().data('DateTimePicker').date(now);
-
-                    now.setHours(now.getHours() - 1);
+                    now.setMinutes(now.getMinutes() - 30);
                     $('#date_timepicker_1').datetimepicker().data('DateTimePicker').date(now);
-
                 }else if($('#dateSelect').val() == '4'){
                     var now = new Date();
                     $('#date_timepicker_2').datetimepicker().data('DateTimePicker').date(now);
-
-                    now.setHours(now.getHours() - 12);
+                    now.setHours(now.getHours() - 1);
                     $('#date_timepicker_1').datetimepicker().data('DateTimePicker').date(now);
-
                 }else if($('#dateSelect').val() == '5'){
                     var now = new Date();
                     $('#date_timepicker_2').datetimepicker().data('DateTimePicker').date(now);
-
-                    now.setDate(now.getDate() - 1);
+                    now.setHours(now.getHours() - 12);
                     $('#date_timepicker_1').datetimepicker().data('DateTimePicker').date(now);
-
                 }else if($('#dateSelect').val() == '6'){
                     var now = new Date();
                     $('#date_timepicker_2').datetimepicker().data('DateTimePicker').date(now);
-
+                    now.setDate(now.getDate() - 1);
+                    $('#date_timepicker_1').datetimepicker().data('DateTimePicker').date(now);
+                }else if($('#dateSelect').val() == '7'){
+                    var now = new Date();
+                    $('#date_timepicker_2').datetimepicker().data('DateTimePicker').date(now);
                     now.setDate(now.getDate() - 7);
                     $('#date_timepicker_1').datetimepicker().data('DateTimePicker').date(now);
                 }
@@ -572,10 +568,10 @@
                         magicType: {
                             show: !0,
                             title: {
-                                line: "Line",
-                                bar: "Bar",
+                                line: "Bar",
+                                bar: "Line",
                             },
-                            type: ["line", "bar"]
+                            type: ["bar", "line"]
                         },
                         restore: {
                             show: !0,
@@ -603,7 +599,7 @@
                 }],
                 series: [{
                     name: "App Crash",
-                    type: "line",
+                    type: "bar",
                     smooth: !0,
                     itemStyle: {
                         normal: {
@@ -620,7 +616,10 @@
                     if('click' ==  p.type){
                         var param = {};
                         param.startDate = p.name;
-                        param.endDate = p.name;
+                        var d = new Date( p.name);
+                        d.setSeconds(d.getSeconds() + 30);
+                        d.setMilliseconds(d.getMilliseconds() + 1);
+                        param.endDate =  d.toJSON();
                         param.appDivision = $("#app_list option:selected").val();
                         TableRealtime().getData(param);
                     }

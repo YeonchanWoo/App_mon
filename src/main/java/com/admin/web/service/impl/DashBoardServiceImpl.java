@@ -102,7 +102,7 @@ public class DashBoardServiceImpl implements DashBoardService {
                         source.setIp( (String)map.get("ip") );
                         source.setUuid( (String)map.get("uuid") );
                         source.setErr_message( (String)map.get("err_message") );
-                        source.setErr_time( (String)map.get("err_time") );
+                        source.setErr_time( (String)map.get("@timestamp") );
                         source.setRefer( (String)map.get("refer") );
                         source.setErr_name( (String)map.get("err_name") );
                         source.setApp_ver( (String)map.get("app_ver") );
