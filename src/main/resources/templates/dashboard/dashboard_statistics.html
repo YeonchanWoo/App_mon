@@ -9,59 +9,55 @@
 <section layout:fragment="content">
     <div class="row">
         <div class="x_panel">
-            <div class="x_title">
-                <div class="col-md-3">
-                    <h2>통계 대시보드</h2>
-                </div>
+            <section class="x_title sect-filter">
+                <h2>통계 대시보드</h2>
 
-                <div style="float:left;">
-                    앱선택 :
-                    <select >
-                        <option th:each="list : ${appList}"
-                                th:value="${list.appDivision}" th:text="${list.appName}"></option>
-                    </select>
-                </div>
+                <aside class="fliter-wrap">
+                    <div class="col">
+                        <div class="flex-wrap">
+                            <select id='app_list' th:field="*{appList}" th:remove="all-but-first"  class="form-control flex mgr10">
+                                <option th:each="list : ${appList}"
+                                        th:value="${list.appDivision}" th:text="${list.appName}"></option>
+                            </select>
 
-                <div class="col-md-6 col-sm-6 col-xs-12" style="float:right;">
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <div class='input-group date' id='date_timepicker_1'>
-                                <input type='text' class="form-control" />
-                                <span class="input-group-addon">
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class='input-group date' id='date_timepicker_1'>
+                            <input type='text' class="form-control" />
+                            <span class="input-group-addon">
                             <span class="glyphicon glyphicon-calendar"></span>
-                    </span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <div class='input-group date' id='date_timepicker_2'>
-                                <input type='text' class="form-control" />
-                                <span class="input-group-addon">
-                                    <span class="glyphicon glyphicon-calendar"></span>
-                                </span>
-                            </div>
+                        </span>
                         </div>
                     </div>
 
-                    <div class="col-md-2">
-                        <select id="dateSelect" name="dateSelect">
-                            <option value="1">5분</option>
-                            <option value="2">15분</option>
-                            <option value="3">1시간</option>
-                            <option value="4">12시간</option>
-                            <option value="5">1일</option>
-                            <option value="6">1주일</option>
-                        </select>
+                    <div class="col">
+                        <div class='input-group date' id='date_timepicker_2'>
+                            <input type='text' class="form-control" />
+                            <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-calendar"></span>
+                        </span>
+                        </div>
                     </div>
 
-                    <div class="col-md-1">
-                        <button type="button" class="btn btn-info" id="btn_grape_statistics">조회</button>
+                    <div class="col">
+                        <div class="flex-wrap">
+                            <select id="dateSelect" class="form-control flex mgr10" name="dateSelect">
+                                <option value="1">5분</option>
+                                <option value="2">15분</option>
+                                <option value="3">1시간</option>
+                                <option value="4">12시간</option>
+                                <option value="5">1일</option>
+                                <option value="6">1주일</option>
+                            </select>
+                            <button type="button" class="btn btn-info" id="btn_grape_realtime">조회</button>
+                        </div>
                     </div>
-                </div>
 
-                <div class="clearfix"></div>
-            </div>
+                    <div class="clearfix"></div>
+                </aside>
+            </section>
 
             <div class="col-md-3 col-sm-3 col-xs-12">
                 <div class="x_panel" th:replace="/dashboard/component/gauge_total_count.html :: gauge_total_count"></div>

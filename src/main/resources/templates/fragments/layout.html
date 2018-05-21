@@ -20,7 +20,7 @@
     <!-- Font Awesome -->
     <link th:href="@{/vendos/font-awesome/css/font-awesome.min.css}" rel="stylesheet" type="text/css"/>
     <!-- Custom Theme Style -->
-    <link th:href="@{/css/custom.min.css}" rel="stylesheet" type="text/css"/>
+    <link th:href="@{/css/custom.css}" rel="stylesheet" type="text/css"/>
 
 </head>
 <body class="nav-md">
@@ -28,8 +28,8 @@
     <div class="main_container">
         <div class="col-md-3 left_col">
             <div class="left_col scroll-view">
-                <div class="navbar nav_title" style="border: 0;">
-                    <a href="/" class="site_title"><i class="fa fa-paw"></i> <span>AppMonitoringSystem</span></a>
+                <div class="navbar nav_title">
+                    <a href="/dashboard/realtime" class="site_title"><i class="fa fa-home"></i><span>AppMon</span></a><!-- 변경 -->
                 </div>
 
                 <div class="clearfix"></div>
@@ -37,7 +37,7 @@
                 <!-- menu profile quick info -->
                 <div class="profile clearfix">
                     <div class="profile_pic">
-                        <img src="images/img.jpg" alt="..." class="img-circle profile_img">
+                        <img src="images/img.jpg" alt="..." class="img-circle profile_img" onerror="this.src='../images/bg_user.png'">
                     </div>
                     <div class="profile_info">
                         <span>Welcome</span>
@@ -46,12 +46,9 @@
                 </div>
                 <!-- /menu profile quick info -->
 
-                <br />
-
                 <!-- sidebar menu -->
                 <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
                     <div class="menu_section">
-                        <h3 th:text="${grpAlias}"></h3>
                         <ul class="nav side-menu">
                             <!--<li><a ><i class="fa fa-home"></i> 홈 <span class="fa fa-chevron"></span></a></li>-->
                             <th:block th:each="menuGrp : ${mainMenuGrp}">
