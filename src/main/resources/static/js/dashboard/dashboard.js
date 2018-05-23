@@ -478,6 +478,9 @@
 
             $('#chk_refresh').change(function() {
                 if (document.getElementById('chk_refresh').checked){
+                    $('#date_timepicker_1').find('.form-control').attr('disabled','disabled');
+                    $('#date_timepicker_2').find('.form-control').attr('disabled','disabled');
+                    $('#dateSelect').attr('disabled','disabled');
                     cls.rfhInterval = setInterval(function () {
                         var param = {};
                         param.appDivision = $("#app_list option:selected").val();
@@ -485,6 +488,9 @@
                     }, 10000);
                 } else{
                     clearInterval(cls.rfhInterval);
+                    $('#date_timepicker_1').find('.form-control').removeAttr('disabled');
+                    $('#date_timepicker_2').find('.form-control').removeAttr('disabled');
+                    $('#dateSelect').removeAttr('disabled');
                 }
             });
 
