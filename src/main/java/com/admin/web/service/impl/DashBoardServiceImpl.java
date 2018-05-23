@@ -47,6 +47,9 @@ public class DashBoardServiceImpl implements DashBoardService {
             LocalDateTime sDate = DateMap.get("startDate");
             LocalDateTime eDate= DateMap.get("endDate");
 
+            logger.info("### statDate : {}", sDate.toString());
+            logger.info("### endDate : {}", sDate.toString());
+
             SearchRequest searchRequest = new SearchRequest(index);
             SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
             searchSourceBuilder.query(QueryBuilders.rangeQuery("@timestamp").to(eDate).from(sDate));
