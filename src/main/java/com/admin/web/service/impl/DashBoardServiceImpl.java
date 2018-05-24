@@ -23,6 +23,7 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -96,13 +97,21 @@ public class DashBoardServiceImpl implements DashBoardService {
                     for(SearchHit hit : hits){
                         HitSource source = new HitSource();
                         Map<String, Object> map = hit.getSourceAsMap();
+
+                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                        Date errDate = sdf.parse((String)map.get("err_time"));
+
+                        Calendar cal = Calendar.getInstance();
+                        cal.setTime(errDate);
+                        cal.add(Calendar.HOUR, 9);
+
                         source.setDevice_model( (String)map.get("device_model") );
                         source.setApp_gubun( (String)map.get("app_gubun") );
                         source.setOs_version( (String)map.get("os_version") );
                         source.setIp( (String)map.get("ip") );
                         source.setUuid( (String)map.get("uuid") );
                         source.setErr_message( (String)map.get("err_message") );
-                        source.setErr_time( (String)map.get("@timestamp") );
+                        source.setErr_time( sdf.format(cal.getTime()) );
                         source.setRefer( (String)map.get("refer") );
                         source.setErr_name( (String)map.get("err_name") );
                         source.setApp_ver( (String)map.get("app_ver") );
@@ -297,4 +306,21 @@ public class DashBoardServiceImpl implements DashBoardService {
         return map;
     }
 
+//    public static void main(String[] args){
+//        try{
+//            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//            Date errDate = sdf.parse("2018-05-16 08:10:38");
+//
+//            Calendar cal = Calendar.getInstance();
+//            cal.setTime(errDate);
+//
+//            System.out.println("111 : " + sdf.format(cal.getTime()));
+//            cal.add(Calendar.HOUR, 9);
+//
+//            System.out.println("111 : " + sdf.format(cal.getTime()));
+//        }catch (Exception e){
+//            e.printStackTrace();
+//        }
+//
+//    }
 }
